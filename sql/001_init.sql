@@ -16,8 +16,8 @@ CREATE TABLE transacoes (
     valor INTEGER NOT NULL,
     tipo VARCHAR(1) NOT NULL,
     descricao VARCHAR NOT NULL,
-    realizada_em TEXT,
+    realizada_em VARCHAR(30),
     clienteId INTEGER NOT NULL
 );
 
-INSERT INTO transacoes (valor, tipo, descricao, realizada_em, clienteId) VALUES(10,'c', 'descricao', datetime('now'), 1);
+INSERT INTO transacoes (valor, tipo, descricao, realizada_em, clienteId) VALUES(10,'c', 'descricao', strftime('%Y-%m-%dT%H:%M:%fZ', 'now'), 1);

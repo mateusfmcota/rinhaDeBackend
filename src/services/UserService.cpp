@@ -1,6 +1,7 @@
 #include "UserService.hpp"
 #include "dto/TransacaoDto.hpp"
 #include <boost/date_time/posix_time/posix_time.hpp>
+#include <ctime>
 
 oatpp::Object<UserDto> UserService::getUserById(const oatpp::Int32& id, const oatpp::provider::ResourceHandle<oatpp::orm::Connection>& connection) {
 
@@ -32,11 +33,23 @@ oatpp::Object<HistoricoDto> UserService::getClienteHistorico(const oatpp::Int32&
 
   saldo->total = userData->saldo;
   saldo->limite = userData->limite;
+  
+  
   { 
     using namespace boost::posix_time;
     ptime t = microsec_clock::universal_time();
     saldo->data_extrato = to_iso_extended_string(t)+"Z";
   }
+
+  // {
+  //   // std::time_t time = std::time({});
+
+  //   char timeString[100];
+  //   // strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
+  //   std::strftime(timeString, std::size(timeString),
+  //                 "%Y-%m-%dT%H:%M:%fZ", std::gmtime(&time));
+  // }
+  
 
   retorno->saldo = saldo;
   retorno->ultimas_transacoes = historico; 

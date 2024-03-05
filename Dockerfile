@@ -1,4 +1,17 @@
-FROM lganzzzo/alpine-cmake:latest
+FROM alpine:latest
+
+RUN apk update && apk upgrade
+
+RUN apk add g++
+
+RUN apk add git
+RUN apk add make
+RUN apk add cmake
+
+
+RUN apk add boost-dev
+RUN apk add sqlite-dev
+RUN apk add postgresql-libs
 
 ADD . /service
 

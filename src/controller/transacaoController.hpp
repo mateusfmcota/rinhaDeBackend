@@ -39,7 +39,7 @@ private:
     }
   };
 
-  ENDPOINT_ASYNC("POST", "/users/{userId}", trasacao) {
+  ENDPOINT_ASYNC("POST", "/clientes/{userId}/transacoes", trasacao) {
 
     ENDPOINT_ASYNC_INIT(trasacao)
     UserService m_userService;

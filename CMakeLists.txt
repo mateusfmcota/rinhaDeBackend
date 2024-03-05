@@ -19,14 +19,15 @@ add_library(${project_name}-lib
 
 ## link libs
 
-find_package(SQLite3 REQUIRED)
-
+# find_package(SQLite3 REQUIRED)
 find_package(oatpp          1.3.0 REQUIRED)
-find_package(oatpp-sqlite   1.3.0 REQUIRED)
+find_package(oatpp-postgresql   1.3.0 REQUIRED)
+# find_package(oatpp-sqlite   1.3.0 REQUIRED)
 
 target_link_libraries(${project_name}-lib
+        # PUBLIC SQLite::SQLite3
         PUBLIC oatpp::oatpp
-        PUBLIC oatpp::oatpp-test
+        # PUBLIC oatpp::oatpp-test
         PUBLIC oatpp::oatpp-sqlite
 )
 
