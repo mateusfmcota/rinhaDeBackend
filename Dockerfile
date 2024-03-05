@@ -10,8 +10,9 @@ RUN apk add cmake
 
 
 RUN apk add boost-dev
-RUN apk add sqlite-dev
-RUN apk add postgresql-libs
+# RUN apk add sqlite-dev
+# RUN apk add postgresql-libs
+RUN apk add postgresql-dev
 
 ADD . /service
 

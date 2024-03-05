@@ -27,8 +27,9 @@ find_package(oatpp-postgresql   1.3.0 REQUIRED)
 target_link_libraries(${project_name}-lib
         # PUBLIC SQLite::SQLite3
         PUBLIC oatpp::oatpp
+        PUBLIC oatpp::oatpp-postgresql
         # PUBLIC oatpp::oatpp-test
-        PUBLIC oatpp::oatpp-sqlite
+        # PUBLIC oatpp::oatpp-sqlite
 )
 
 ## add executables

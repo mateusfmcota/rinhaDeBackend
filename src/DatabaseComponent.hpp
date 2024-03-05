@@ -13,15 +13,16 @@ public:
    */
   OATPP_CREATE_COMPONENT(std::shared_ptr<UserDb>, userDb)([] {
 
-    auto connectionProvider = std::make_shared<oatpp::sqlite::ConnectionProvider>("data.sqlite");    
-  
+    auto connectionProvider = std::make_shared<oatpp::postgresql::ConnectionProvider>("postgresql://admin:123@db:5432/rinha");    
+
+    //postgresql://[ENTER USERNAME HERE]:[ENTER PASSWORD HERE]@db:5432/rinha
     /* Create database-specific ConnectionPool */
-    auto connectionPool = oatpp::sqlite::ConnectionPool::createShared(connectionProvider, 
+    auto connectionPool = oatpp::postgresql::ConnectionPool::createShared(connectionProvider, 
                                                                       10 /* max-connections */, 
                                                                       std::chrono::seconds(5) /* connection TTL */);
     
     /* Create database-specific Executor */
-    auto executor = std::make_shared<oatpp::sqlite::Executor>(connectionPool);
+    auto executor = std::make_shared<oatpp::postgresql::Executor>(connectionPool);
 
     return std::make_shared<UserDb>(executor);
 

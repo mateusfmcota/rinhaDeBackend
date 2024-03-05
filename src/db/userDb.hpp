@@ -3,7 +3,7 @@
 
 #include "dto/UserDto.hpp"
 #include "dto/TransacaoDto.hpp"
-#include "oatpp-sqlite/orm.hpp"
+#include "oatpp-postgresql/orm.hpp"
 #include <stdio.h>
 
 #include OATPP_CODEGEN_BEGIN(DbClient)
@@ -14,14 +14,13 @@ class UserDb : public oatpp::orm::DbClient {
     : oatpp::orm::DbClient(executor)
   {
 
-    oatpp::orm::SchemaMigration migration(executor);
-    printf("path: %s\n\n\n\n", DATABASE_MIGRATIONS);
-    migration.addFile(1, DATABASE_MIGRATIONS "/001_init.sql");
-    // TODO - Add more migrations here.
-    migration.migrate(); // <-- run migrations. This guy will throw on error.
+    // oatpp::orm::SchemaMigration migration(executor);
+    // printf("path: %s\n\n\n\n", DATABASE_MIGRATIONS);
+    // migration.addFile(1, DATABASE_MIGRATIONS "/001_init.sql");
+    // migration.migrate();
 
-    auto version = executor->getSchemaVersion();
-    OATPP_LOGD("ClienteDb", "Migration - OK. Version=%d.", version);
+    // auto version = executor->getSchemaVersion();
+    // OATPP_LOGD("ClienteDb", "Migration - OK. Version=%d.", version);
 
   }
 
@@ -35,9 +34,10 @@ class UserDb : public oatpp::orm::DbClient {
         PARAM(oatpp::Int32, saldo))
   
   QUERY(adicionarNovaEntradaHistorico,
-    "INSERT INTO transacoes (valor, tipo, descricao, realizada_em, clienteId) VALUES(:transacao.valor,:transacao.tipo, :transacao.descricao, strftime('%Y-%m-%dT%H:%M:%fZ', 'now'), :id)",
+    "INSERT INTO transacoes (valor, tipo, descricao, realizada_em, clienteId) VALUES(:transacao.valor,:transacao.tipo, :transacao.descricao, :data, :id)",
     PARAM(oatpp::Int32, id),
-    PARAM(oatpp::Object<TransacaoDto>, transacao)
+    PARAM(oatpp::Object<TransacaoDto>, transacao),
+    PARAM(oatpp::String, data)
   )
 
   QUERY(getHistorico,

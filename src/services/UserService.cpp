@@ -62,7 +62,13 @@ oatpp::Object<UserDto> UserService::updateSaldo(const oatpp::Int32& id ,const oa
 
   auto dbResult = m_database->updateSaldoCliente(id, saldo);  
   
-  m_database->adicionarNovaEntradaHistorico(id, transacaoDto);
+  { 
+    using namespace boost::posix_time;
+    ptime t = microsec_clock::universal_time();
+    m_database->adicionarNovaEntradaHistorico(id, transacaoDto,(to_iso_extended_string(t)+"Z"));
+    
+  }
+  
 
   // valor, tipo, descricao, id
 
